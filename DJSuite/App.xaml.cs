@@ -14,7 +14,7 @@ namespace DJSuite
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new TestPage();
+            MainPage = new LoginPage();
         }
 
         protected override void OnStart()

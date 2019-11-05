@@ -6,11 +6,11 @@ namespace DJSuite.ViewModels
 {
     public class SongViewModel : BaseViewModel
     {
-        public Song Song { get; set; }
+        public Song song { get; set; }
         public SongViewModel(Song song = null)
         {
             Title = song?.Name;
-            Song = song;
+            this.song = song;
         }
 
 

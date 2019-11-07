@@ -11,6 +11,7 @@
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
                 Clicked="OnButtonClicked" />
+            <WebView x:Name="webView" WidthRequest="1000" HeightRequest="1000" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

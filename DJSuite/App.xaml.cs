@@ -3,18 +3,20 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using DJSuite.Services;
 using DJSuite.Views;
+using DJSuite.Helpers;
 
 namespace DJSuite
 {
     public partial class App : Application
     {
-
+        public static bool HasLoggedIn { get; set; }
+        public static OAuthModel AuthModel { get; set; }
         public App()
         {
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new TestPage();
+            MainPage = new LoginPage();
         }
 
         protected override void OnStart()

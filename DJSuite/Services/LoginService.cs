@@ -15,7 +15,10 @@ namespace DJSuite.Services
         {
             this.user = user;
         }
-
+        public LoginService()
+        {
+            
+        }
         public string GetLoginCredentials()
         {
             //  var scope = 'user-read-private user-read-email user-library-read';
@@ -31,7 +34,34 @@ namespace DJSuite.Services
 
             return "";
         }
+        public string PostDataToAPI(string deviceId, string authToken)
+        {
+            try
+            {
+                WebRequest request = WebRequest.Create($"https://djsuiteapi.azurewebsites.net/api/dj/AuthFromDevice?deviceId={deviceId}&token={authToken}");
+                //request.Headers.Add("deviceId", deviceId);
+                //request.Headers.Add("token", authToken);
+                request.ContentType = "application/x-www-form-urlencoded";
 
+
+
+                WebResponse response = request.GetResponse();
+                string responseFromServer = "";
+
+                using (Stream dataStream = response.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(dataStream);
+                    responseFromServer = reader.ReadToEnd();
+                }
+
+                response.Close();
+                return responseFromServer;
+            }
+            catch(Exception ex)
+            {
+                return ex.Message;
+            }
+        }
       
 
         private string ApiGetRequest(string apiEndpoint, string token) 

@@ -34,6 +34,14 @@ namespace DJSuite.Views
 
             viewModel = new ItemDetailViewModel(item);
             BindingContext = viewModel;
+
+            string token = string.Empty;
+            if (App.AuthModel != null)
+            {
+                token = App.AuthModel.AccessToken;
+            }
+
+            token = "test";
         }
     }
 }

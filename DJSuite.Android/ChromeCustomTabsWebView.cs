@@ -37,11 +37,11 @@ namespace DJSuite.Droid
             // Ensure the intent is not kept in the history stack, which ensures navigating away will close it
             customTabsIntent.Intent.AddFlags(ActivityFlags.NoHistory);
 
-            MainActivity.CustomUrlSchemeCallbackHandler = (response) =>
-            {
-                activity.StartActivity(typeof(MainActivity));
-                tcs.SetResult(response);
-            };
+            //MainActivity.CustomUrlSchemeCallbackHandler = (response) =>
+            //{
+            //    activity.StartActivity(typeof(MainActivity));
+            //    tcs.SetResult(response);
+            //};
 
             // Launch
             customTabsIntent.LaunchUrl(activity, Android.Net.Uri.Parse(url));

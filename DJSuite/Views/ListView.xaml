@@ -5,19 +5,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="DJSuite.Views.ListView">
-    <ListView x:Name="SongView"
-            ItemsSource="{Binding Songs}"
-            ItemTapped="Handle_ItemTapped"
+    <ListView x:Name="SongView" ItemsSource="{Binding Songs}" ItemTapped="Handle_ItemTapped"
             IsPullToRefreshEnabled="true" 
             CachingStrategy="RecycleElement"
             RefreshCommand="{Binding RefreshCommand}"
-            IsRefreshing="{Binding IsRefreshing}" >
-
-
-    <ListView.ItemTemplate>
-        <DataTemplate>
-            <TextCell Text="{Binding Title}" />
-        </DataTemplate>
-    </ListView.ItemTemplate>
+            IsRefreshing="{Binding IsRefreshing, Mode=OneWay}" >
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell Text="{Binding Title}" />
+            </DataTemplate>
+        </ListView.ItemTemplate>
     </ListView>
 </ContentPage>

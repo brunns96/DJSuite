@@ -24,6 +24,7 @@ namespace DJSuite.Views
         public LoginWebView()
         {
             InitializeComponent();
+
             webView.Source = url;
 
             webView.Navigated += WebView_Navigated;
@@ -32,11 +33,13 @@ namespace DJSuite.Views
        
         async void WebView_Navigated(object sender, WebNavigatedEventArgs e)
         {
-            var json = await webView.EvaluateJavaScriptAsync("document.body.innerHTML");
-
             //TODO:set page to a loading icon
-            await Navigation.PushModalAsync(new ItemDetailPage());
+            webView.IsVisible = false;
 
+            activityIndicator.Color = Color.Black;
+            activityIndicator.IsRunning = true;
+
+            var json = await webView.EvaluateJavaScriptAsync("document.body.innerHTML");
 
             if (json.Contains("access_token"))
             {
@@ -50,9 +53,14 @@ namespace DJSuite.Views
                 loginService = new LoginService();
                 loginService.PostDataToAPI(GetDeviceId(), "6");
             }
+            else
+            {
+                //error handling
+                
+            }
 
             //code to go to new xamarin form page
-            await Navigation.PushModalAsync(new ListView());
+            await Navigation.PushAsync(new ListView());
         }
 
         private string GetDeviceId()

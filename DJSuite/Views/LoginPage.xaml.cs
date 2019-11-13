@@ -1,40 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Web;
-using DJSuite.Helpers;
 using DJSuite.Models;
-using DJSuite.Services;
 using DJSuite.ViewModels;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
+using DJSuite.Services;
 namespace DJSuite.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        UserViewModel viewModel;
         
         public LoginPage()
         {
-            InitializeComponent();
-
-            User user = new User
-            {
-                Username = "",
-                Password = ""
-            };
-            viewModel = new UserViewModel(user);
-            BindingContext = viewModel;            
+            InitializeComponent();                     
         }
         async void OnButtonClicked(object sender, EventArgs args)
         {
-            await Navigation.PushModalAsync(new LoginWebView());
+            await TestMethodAsync();
+          //  await Navigation.PushModalAsync(new LoginWebView());
+        }
+
+        private async System.Threading.Tasks.Task TestMethodAsync()
+        {
+            var queueService = new QueueService();
+            await queueService.GetSongsAsync();
         }
 
 

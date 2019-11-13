@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using DJSuite.Droid;
 using Xamarin.Forms;
+using DJSuite.Services;
 
 [assembly: Dependency(typeof(NativeBrowser))]
 namespace DJSuite.Droid

@@ -58,7 +58,7 @@ namespace DJSuite.Views
             
             await DisplayAlert("Item Tapped", content.Title, "OK");
 
-            //Deselect Item - DOESNT WORK
+            //Deselect Item
             SongView.SelectedItem = null;
         }
         

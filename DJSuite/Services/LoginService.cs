@@ -18,22 +18,7 @@ namespace DJSuite.Services
         public LoginService()
         {
             
-        }
-        public string GetLoginCredentials()
-        {
-            //  var scope = 'user-read-private user-read-email user-library-read';
-            //      res.redirect('https://accounts.spotify.com/authorize?' +
-            //        querystring.stringify({
-            //      response_type: 'code',
-            //client_id: client_id,
-            //scope: scope,
-            //redirect_uri: redirect_uri,
-            //state: state
-            //    }));
-            var resp = ApiGetRequest("https://api.spotify.com/v1/users/jmperezperez", user.Token);
-
-            return "";
-        }
+        }        
         public string PostDataToAPI(string deviceId, string authToken)
         {
             try

@@ -4,15 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="DJSuite.Views.LoginPage">
+             x:Class="DJSuite.Views.LoginWebView">
     <ContentPage.Content>
         <StackLayout>
-            <Button Text="Login"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="Center"
-                Clicked="OnButtonClicked" 
-                    HeightRequest="150"            
-                    WidthRequest="300"/>            
+            <WebView x:Name="webView" WidthRequest="1000" HeightRequest="1000" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -16,15 +16,9 @@ namespace DJSuite.Views
         }
         async void OnButtonClicked(object sender, EventArgs args)
         {
-            await TestMethodAsync();
-          //  await Navigation.PushModalAsync(new LoginWebView());
+            await Navigation.PushModalAsync(new NavigationPage(new LoginWebView()));
         }
 
-        private async System.Threading.Tasks.Task TestMethodAsync()
-        {
-            var queueService = new QueueService();
-            await queueService.GetSongsAsync();
-        }
 
 
     }

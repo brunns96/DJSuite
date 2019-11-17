@@ -31,5 +31,7 @@ namespace DJSuite.Models.APIModels
          */
         public Array[] Tracks { get; set; }
         public string uri { get; set; }
+
+        public int Total_Tracks { get; set; }
     }
 }

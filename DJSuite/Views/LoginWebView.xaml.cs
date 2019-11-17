@@ -1,4 +1,5 @@
-﻿using DJSuite.Services;
+﻿using DJSuite.Models.APIModels;
+using DJSuite.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,25 +34,20 @@ namespace DJSuite.Views
        
         async void WebView_Navigated(object sender, WebNavigatedEventArgs e)
         {
-            //TODO:set page to a loading icon
             webView.IsVisible = false;
+            activityIndicator.VerticalOptions = LayoutOptions.CenterAndExpand;
+            activityIndicator.HorizontalOptions = LayoutOptions.Center;
 
             activityIndicator.Color = Color.Black;
             activityIndicator.IsRunning = true;
 
             var json = await webView.EvaluateJavaScriptAsync("document.body.innerHTML");
 
-            if (json.Contains("access_token"))
+            if (json.Contains("TOKENID"))
             {
-                //TODO Fix to get access token
-                var arg = @".*""access_token"":""(.?)"".*";
-                var m = Regex.Match(json, arg);
-                var x = m.Groups[0].Value;
-
-                //TODO Call API to send device Id and token
-                //Store device id and token 
-                loginService = new LoginService();
-                loginService.PostDataToAPI(GetDeviceId(), "6");
+                var tokenId = GetTokenId(json);
+                Token.TokenID = tokenId;
+                //TODO Call API to send device Id and token                
             }
             else
             {
@@ -60,7 +56,8 @@ namespace DJSuite.Views
             }
 
             //code to go to new xamarin form page
-            await Navigation.PushAsync(new ListView());
+            
+            await Navigation.PushModalAsync(new NavigationPage(new QueuePage()));
         }
 
         private string GetDeviceId()
@@ -73,6 +70,13 @@ namespace DJSuite.Views
             }
 
             return deviceId;
+        }
+
+        private string GetTokenId(string json)
+        {
+            int startPos = json.LastIndexOf("TOKENIDSTART") + "TOKENIDSTART".Length;
+            int endpos = json.IndexOf("TOKENIDEND") - startPos;
+            return json.Substring(startPos, endpos);
         }
     }
 }

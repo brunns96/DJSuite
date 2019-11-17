@@ -11,4 +11,11 @@ namespace DJSuite.Models.APIModels
         public TrackDTO[] Tracks;
         public AudioFeaturesDTO[] AudioFeatures;
     }
+
+    public class Queue
+    {
+        public int QueueID { get; set; }
+        public string TrackName { get; set; }
+        public string TrackUri { get; set; }
+    }
 }

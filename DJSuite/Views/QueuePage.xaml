@@ -4,16 +4,22 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="DJSuite.Views.ListView">
-    <ListView x:Name="SongView" ItemsSource="{Binding Songs}" ItemTapped="Handle_ItemTapped"
+             x:Class="DJSuite.Views.QueuePage">
+
+    <StackLayout>
+
+
+        <ListView x:Name="SongView" ItemsSource="{Binding Songs}" ItemTapped="Handle_ItemTapped"
             IsPullToRefreshEnabled="true" 
             CachingStrategy="RecycleElement"
             RefreshCommand="{Binding RefreshCommand}"
             IsRefreshing="{Binding IsRefreshing, Mode=OneWay}" >
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <TextCell Text="{Binding Title}" />
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding TextToDisplay}" />                                
+                </DataTemplate>                
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Add Songs to Queue" Clicked="Button_Clicked"></Button>
+    </StackLayout>
 </ContentPage>

@@ -8,25 +8,40 @@ using System.Threading.Tasks;
 using DJSuite.Models.APIModels;
 
 using System.Net.Http.Headers;
+using System.IO;
+using Newtonsoft.Json;
+using System.Collections.ObjectModel;
+
 namespace DJSuite.Services
 {
     public class QueueService
     {
-        //TODO Look into this method
-        public async Task GetSongsAsync()
+        public ObservableCollection<Queue> GetSongsAsync()
         {
-            JObject jsonObject;
             var url = "https://djsuiteapi.azurewebsites.net/api/dj/queue";
-            HttpClient client = null;
-            List<QueueDTO> queue = null;
-            using(client = new HttpClient())
+            ObservableCollection<Queue> queue = null;
+            var webRequest = WebRequest.Create(url);
+            string jsonResponse = string.Empty;
+            if (webRequest != null)
             {
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
+                webRequest.Method = "GET";
+                webRequest.Timeout = 12000;
+                webRequest.ContentType = "application/json";
+
+                HttpWebResponse httpWebResponse = (HttpWebResponse)webRequest.GetResponse();
+
+                using (System.IO.Stream s = webRequest.GetResponse().GetResponseStream())
                 {
-                    queue = await response.Content.ReadAsAsync<List<QueueDTO>>();
+                    using (System.IO.StreamReader sr = new System.IO.StreamReader(s))
+                    {
+                        jsonResponse = sr.ReadToEnd();
+                        queue = JsonConvert.DeserializeObject<ObservableCollection<Queue>>(jsonResponse);
+                    }
                 }
+                return queue;
             }
+            return new ObservableCollection<Queue>();
+      
             
            
         }

@@ -6,7 +6,8 @@
              mc:Ignorable="d"
              x:Class="DJSuite.Views.LoginPage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Spacing="-220">
+            <Image Source="BeUrDJ" WidthRequest="500" HeightRequest="300" VerticalOptions="Center"/>
             <Button Text="Login"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"

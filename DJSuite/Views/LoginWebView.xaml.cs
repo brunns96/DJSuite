@@ -16,7 +16,7 @@ namespace DJSuite.Views
     public partial class LoginWebView : ContentPage
     {
 
-        LoginService loginService;
+        
         private static string clientId = "47a5c9cece574b54bd77ab03ddc871a8";
         private static string redirectUrl = "https://djsuiteapi.azurewebsites.net/api/dj/callback";
         private string url = "https://accounts.spotify.com/authorize?client_id=" + clientId + 
@@ -40,7 +40,7 @@ namespace DJSuite.Views
 
             activityIndicator.Color = Color.Black;
             activityIndicator.IsRunning = true;
-
+            
             var json = await webView.EvaluateJavaScriptAsync("document.body.innerHTML");
 
             if (json.Contains("TOKENID"))
@@ -51,7 +51,7 @@ namespace DJSuite.Views
             }
             else
             {
-                //error handling
+                //error handlingxx
                 
             }
 
@@ -74,6 +74,7 @@ namespace DJSuite.Views
 
         private string GetTokenId(string json)
         {
+            json = json.Substring(0, json.IndexOf("This XML") + 1);
             int startPos = json.LastIndexOf("TOKENIDSTART") + "TOKENIDSTART".Length;
             int endpos = json.IndexOf("TOKENIDEND") - startPos;
             return json.Substring(startPos, endpos);

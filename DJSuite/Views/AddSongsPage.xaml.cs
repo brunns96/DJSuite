@@ -17,14 +17,11 @@ namespace DJSuite.Views
         public ObservableCollection<TrackDTO> Songs { get; set; }
         public ObservableCollection<TrackDTO> SongsToReturn { get; set; }
         QueuePage _page;
+        SongService songService = new SongService();
         public AddSongsPage(QueuePage page)
-        {
-            _page = page;
+        {            
             InitializeComponent();
-
-            
-            
-
+            _page = page;
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -60,17 +57,17 @@ namespace DJSuite.Views
         {
             var searchText = SongsSearchBar.Text;
 
-            var songService = new SongService();
+            
             Songs = await songService.GetSongsAsync(searchText);
 
-            var suggestions = Songs.Where(track => track.Name.ToLower().Contains(searchText)); ;
+           // var suggestions = Songs.Where(track => track.Name.ToLower().Contains(searchText)).ToList();
             
-            SongView.ItemsSource = suggestions;
+            SongView.ItemsSource = Songs; 
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         { 
-            Navigation.PushAsync(new NavigationPage(_page));
+            Navigation.PushModalAsync(new NavigationPage(_page));
         }
     }
 }

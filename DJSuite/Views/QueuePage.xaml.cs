@@ -30,7 +30,7 @@ namespace DJSuite.Views
         public QueuePage()
         {
             InitializeComponent();
-
+            Title = "Lobby Queue Page";
             //populate songs from database
             Songs = new ObservableCollection<TrackDTO>();
 
@@ -49,21 +49,39 @@ namespace DJSuite.Views
         {
             if (e.Item == null)
                 return;
-            var content = e.Item as Queue;
-
-            //var ex = await DisplayActionSheet("Add Song to Queue", "Cancel", null,"Add Song?");
+            var track = e.Item as TrackDTO;
 
             
 
+            if (track.Votes == null)
+            {
+                track.Votes = 0;
+            }           
 
+            var vote = await DisplayActionSheet("Upvote/Downvote", "Cancel", null, "Upvote", "Downvote");
+            if(vote == "Upvote")
+            {
+                track.Votes++;
+            }
+
+            Songs.Where(song => song.Name == track.Name).Select(song => { song.Votes = track.Votes; return true; });
+
+            var tempList = Songs.OrderByDescending(song => song.Votes).ToList();
+            Songs = new ObservableCollection<TrackDTO>();
+            foreach(var song in tempList)
+            {
+                Songs.Add(song);
+            }
+            SongView.ItemsSource = Songs;
 
             //Deselect Item
             SongView.SelectedItem = null;
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushModalAsync(new NavigationPage(new AddSongsPage(this)));
+            Navigation.InsertPageBefore(new AddSongsPage(this), this);
+            await Navigation.PopAsync().ConfigureAwait(false);
         }
         
     }

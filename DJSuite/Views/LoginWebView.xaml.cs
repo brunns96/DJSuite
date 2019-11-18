@@ -34,30 +34,34 @@ namespace DJSuite.Views
        
         async void WebView_Navigated(object sender, WebNavigatedEventArgs e)
         {
-            webView.IsVisible = false;
-            activityIndicator.VerticalOptions = LayoutOptions.CenterAndExpand;
-            activityIndicator.HorizontalOptions = LayoutOptions.Center;
-
-            activityIndicator.Color = Color.Black;
-            activityIndicator.IsRunning = true;
+                     
             
             var json = await webView.EvaluateJavaScriptAsync("document.body.innerHTML");
 
             if (json.Contains("TOKENID"))
             {
+                webView.IsVisible = false;
+                activityIndicator.VerticalOptions = LayoutOptions.CenterAndExpand;
+                activityIndicator.HorizontalOptions = LayoutOptions.Center;
+
+                activityIndicator.Color = Color.Black;
+                activityIndicator.IsRunning = true;
                 var tokenId = GetTokenId(json);
                 Token.TokenID = tokenId;
+                //code to go to new xamarin form page
+                Navigation.InsertPageBefore(new QueuePage(), this);
+                await Navigation.PopAsync().ConfigureAwait(false);
                 //TODO Call API to send device Id and token                
             }
             else
             {
-                //error handlingxx
+                
                 
             }
 
-            //code to go to new xamarin form page
             
-            await Navigation.PushModalAsync(new NavigationPage(new QueuePage()));
+            
+
         }
 
         private string GetDeviceId()

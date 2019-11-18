@@ -91,6 +91,9 @@ namespace DJSuite.Models.APIModels
             public string Uri { get; set; }
 
             public string TextToDisplay { get => FormatText(); }
+            
+            public int? Votes { get; set; }
+
 
             private string FormatText()
             {

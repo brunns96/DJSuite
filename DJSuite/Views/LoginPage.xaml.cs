@@ -16,7 +16,8 @@ namespace DJSuite.Views
         }
         async void OnButtonClicked(object sender, EventArgs args)
         {
-            await Navigation.PushModalAsync(new NavigationPage(new LoginWebView()));
+            Navigation.InsertPageBefore(new LoginWebView(), this);
+            await Navigation.PopAsync().ConfigureAwait(false);
         }
 
 

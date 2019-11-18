@@ -7,8 +7,8 @@
              x:Class="DJSuite.Views.LoginPage">
     <ContentPage.Content>
         <StackLayout Spacing="-220">
-            <Image Source="BeUrDJ" WidthRequest="500" HeightRequest="300" VerticalOptions="Center"/>
-            <Button Text="Login"
+            
+            <Button Text="Connect with Spotify"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center"
                 Clicked="OnButtonClicked" 

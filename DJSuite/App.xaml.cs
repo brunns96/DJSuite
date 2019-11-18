@@ -14,7 +14,7 @@ namespace DJSuite
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new LoginPage();
+            MainPage = new NavigationPage(new UserSelection());
            
         }
 

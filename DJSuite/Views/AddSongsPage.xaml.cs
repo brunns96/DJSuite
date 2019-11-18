@@ -13,14 +13,15 @@ namespace DJSuite.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddSongsPage : ContentPage
     {
-        
-        public ObservableCollection<TrackDTO> Songs { get; set; }
-        public ObservableCollection<TrackDTO> SongsToReturn { get; set; }
+
+        public ObservableCollection<TrackDTO> Songs = new ObservableCollection<TrackDTO>();
         QueuePage _page;
         SongService songService = new SongService();
         public AddSongsPage(QueuePage page)
         {            
+
             InitializeComponent();
+            Title = "Add Songs To Queue";
             _page = page;
         }
 
@@ -65,9 +66,10 @@ namespace DJSuite.Views
             SongView.ItemsSource = Songs; 
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
-        { 
-            Navigation.PushModalAsync(new NavigationPage(_page));
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            Navigation.InsertPageBefore(_page, this);
+            await Navigation.PopAsync().ConfigureAwait(false);
         }
     }
 }
